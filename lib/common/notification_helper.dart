@@ -21,9 +21,7 @@ class NotificationHelper {
   Future<void> init() async {
     const androidSetting = AndroidInitializationSettings('app_icon');
     const iosSetting = IOSInitializationSettings(
-        requestSoundPermission: false,
-        requestAlertPermission: false,
-        requestBadgePermission: false);
+        requestSoundPermission: true, requestAlertPermission: true, requestBadgePermission: true);
     const InitializationSettings initializationSettings =
         InitializationSettings(android: androidSetting, iOS: iosSetting);
 
@@ -43,24 +41,18 @@ class NotificationHelper {
           bool forTomorrow = false,
           required DateTime dateTime}) async =>
       await flutterLocalNotificationsPlugin
-          .zonedSchedule(
-              id,
-              title,
-              body,
-              timezone.TZDateTime.from(dateTime, timezone.local),
+          .zonedSchedule(id, title, body, timezone.TZDateTime.from(dateTime, timezone.local),
               await notificationDetail(dateTime),
               payload: payload,
               androidAllowWhileIdle: true,
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime)
           .whenComplete(() => Fluttertoast.showToast(
-                msg:
-                    "Alarm has been set to ${DateFormat("dd/MM/yyyy HH:mm:ss").format(dateTime)}",
+                msg: "Alarm has been set to ${DateFormat("dd/MM/yyyy HH:mm:ss").format(dateTime)}",
                 toastLength: Toast.LENGTH_SHORT,
               ));
 
-  final AndroidNotificationDetails _androidNotificationDetails =
-      const AndroidNotificationDetails(
+  final AndroidNotificationDetails _androidNotificationDetails = const AndroidNotificationDetails(
     'channel ID',
     'channel name',
     playSound: true,
@@ -73,7 +65,11 @@ class NotificationHelper {
   Future notificationDetail(var idDate) async {
     return NotificationDetails(
         android: _androidNotificationDetails,
-        iOS: const IOSNotificationDetails());
+        iOS: const IOSNotificationDetails(
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ));
   }
 
   void cancelAll() => flutterLocalNotificationsPlugin.cancelAll();

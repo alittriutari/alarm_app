@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.alit.alarm_test">
+    package="com.example.alarm-test">
    <application
         android:label="alarm_test"
         android:name="${applicationName}"

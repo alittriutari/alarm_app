@@ -10,13 +10,13 @@ class AlarmClock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-          margin: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 40),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(0, 15, 10, 0),
+                padding: const EdgeInsets.fromLTRB(0, 5, 10, 0),
                 child: Text(
                   "${alarmController.alarm.value.hour.toString().padLeft(2, '0')}:${alarmController.alarm.value.minute.toString().padLeft(2, '0')}:${alarmController.alarm.value.second.toString().padLeft(2, '0')}",
                   style: const TextStyle(fontSize: 30),
